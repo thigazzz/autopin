@@ -1,10 +1,10 @@
 import pytest
 from autopin.today import get_topics
-from .fake_html import fake_html
+from .fake_html import fake_html_with_one_topic
 
 
 def test_get_topics_from_today():
-    html = fake_html
+    html = fake_html_with_one_topic
 
     topics = get_topics(html)
 
