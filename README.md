@@ -1,0 +1,1 @@
+### Projeto que automatiza donwloads de fotos do pinterest

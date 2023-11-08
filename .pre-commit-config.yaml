@@ -1,0 +1,15 @@
+repos:
+-   repo: https://github.com/psf/black
+    rev:  23.3.0
+    hooks:
+    - id: black
+      stages: [commit]
+      entry: bash -c 'black "$@"; git add -u' --
+-   repo: local
+    hooks:
+      - id: requirements
+        name: requirements
+        entry: bash -c 'venv/bin/pip3 freeze > requirements.txt; git add requirements.txt'
+        language: system
+        pass_filenames: false
+        stages: [commit]
