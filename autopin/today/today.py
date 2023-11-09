@@ -1,7 +1,7 @@
 """
 
 Coleta tópicos, imagens, etc, recomendada no site do Pinterest
-
+z
 """
 import requests
 from bs4 import BeautifulSoup
@@ -24,12 +24,10 @@ def show_topics():
         raise Exception("Erro ao se conectar ao site do Pinterest")
 
     topics = get_topics(request.text)
-    print(topics["topics"])
 
     _topics = []
 
     for topic in topics["topics"]:
-        print(topic["title"])
         _topics.append("{}: {}".format(topic["title"], topic["description"]))
 
     return _topics
@@ -45,8 +43,9 @@ def get_topics(content: str) -> dict[str, str | list]:
         "day": "8 de Novembro de 2023"
         "topics": [
             {
-                "title": "Natureza"
-                "description"; "Ar livre"
+                "title": "Natureza",
+                "description"; "Ar livre",
+                "link": "..."
             }
         ]
     }
@@ -66,7 +65,14 @@ def get_topics(content: str) -> dict[str, str | list]:
             topic_description = topic_card.select_one(
                 "a > div > div > div > div > div > div > div h1"
             ).text
-            topics.append({"title": topic_title, "description": topic_description})
+            topic_link = topic_card.find("a")["href"]
+            topics.append(
+                {
+                    "title": topic_title,
+                    "description": topic_description,
+                    "link": topic_link,
+                }
+            )
 
         return {"day": today, "topics": topics}
     except:

@@ -9,7 +9,7 @@ exemplo de HTML
 <div data-test-id="today-tab-article" class="hA- wYR zI7 iyn Hsu zmN" style="max-width:auto;width:auto">
     <div data-test-id="suggested-articles-link" class="zI7 iyn Hsu">
         <a class="Wk9 xQ4 CCY S9z eEj iyn kVc Tbt L4E e8F BG7"
-            href="/today/best/vegetableinfused-cocktails-and-mocktails/115377/" rel="" tabindex="0">
+            href="/today/best/90s-outfit-inspo-from-carolyn-bessettekennedy/115378/" rel="" tabindex="0">
             <div class="zI7 iyn Hsu" style="width:444px;min-height:306px">
                 <div class="ALa OVX XiG sLG urM zI7 iyn Hsu" style="padding-top:75%">
                     <div class="MIw QLY Rym ojN p6V zI7 iyn Hsu">
