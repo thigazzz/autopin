@@ -1,10 +1,13 @@
 """
 
-Coleta tópicos, imagens, etc, recomendada no site do Pinterest
-z
+Coleta tópicos e faz donwload de imagens recomendadas no dia atual
+
 """
 import requests
 from bs4 import BeautifulSoup
+
+URL = "https://br.pinterest.com/today/"
+STATUS_CODE = {"success": "2", "failure": "4"}
 
 
 def show_topics():
@@ -13,24 +16,21 @@ def show_topics():
     Faz a requição para o Pinterest e mostra os topics de hoje
 
     >>> show_topics()
-    - Natureza
-    - Carros
+    ["Natureza', "Carros"]
 
     """
-    url = "https://br.pinterest.com/today/"
-    request = requests.get(url)
+    request = request_page(URL)
 
-    if request.status_code != 200:
+    if _is_request_failure(request.status_code):
         raise Exception("Erro ao se conectar ao site do Pinterest")
 
     topics = get_topics(request.text)
 
-    _topics = []
+    return _format_topics(topics)
 
-    for topic in topics["topics"]:
-        _topics.append("{}: {}".format(topic["title"], topic["description"]))
 
-    return _topics
+def request_page(url: str):
+    return requests.get(URL)
 
 
 def get_topics(content: str) -> dict[str, str | list]:
@@ -77,3 +77,23 @@ def get_topics(content: str) -> dict[str, str | list]:
         return {"day": today, "topics": topics}
     except:
         raise Exception("Tivemos problemas ao coletar os tópicos de hoje")
+
+
+def _is_request_failure(status_code: int) -> bool:
+    status_code = list(str(status_code))
+
+    if status_code[0] == STATUS_CODE["success"]:
+        return False
+
+    return True
+
+
+def _format_topics(topics):
+    return [
+        _format_string_in_title_and_description(topic["title"], topic["description"])
+        for topic in topics["topics"]
+    ]
+
+
+def _format_string_in_title_and_description(title, description):
+    return "{}: {}".format(title, description)
