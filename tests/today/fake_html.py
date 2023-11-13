@@ -111,3 +111,27 @@ exemplo de HTML
 </html>
 
 """
+
+
+fake_html_for_get_images_test = """
+<html>
+    <div data-test-id="pin-visual-wrapper"
+                class="XiG zI7 iyn Hsu"
+                style="margin-top:0%;margin-bottom:0%">
+            <div
+                class="Pj7 sLG XiG ho- m1e">
+            <div class="XiG zI7 iyn Hsu"
+                style="background-color:#b07555;padding-bottom:177.54237288135593%">
+            <img alt="Empanada, Cream Cheese, Quick Recipes, Fast Food, Easy Meals, Top, Salads, Sushi Burger, Delicious Recipes"
+                class="hCL kVc L4E MIw"
+                fetchpriority="auto"
+                loading="auto"
+                src="any link" />
+            </div>
+            <div
+                class="KPc MIw ojN Rym p6V QLY">
+            </div>
+        </div>
+    </div>
+</html>
+"""

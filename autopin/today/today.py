@@ -97,3 +97,50 @@ def _format_topics(topics):
 
 def _format_string_in_title_and_description(title, description):
     return "{}: {}".format(title, description)
+
+
+def get_images_from_today_topic(
+    topic: dict[str, dict[str, str]]
+) -> dict[str, str | list]:
+    """
+    Essa função coleta iamgens dado um tópico
+
+    Param:
+        topic: Dicionário contento informações do tópico (nome, link)
+
+    Return:
+        um dicionário com tópico, título e link da imagem
+
+        exemplo:
+        {
+                "topic": "...",
+                "images": [
+                        {
+                                "link": "..."
+                }
+                ]
+        }
+
+    Exception:
+        Exception: Erro ao raspar dados do Site
+    """
+    _url = "https://br.pinterest.com/" + "{}".format(topic["link"])
+    request = request_page(_url)
+
+    if _is_request_failure(request.status_code):
+        raise Exception("Erro ao se conectar ao site do Pinterest")
+
+    return {"topic": topic["title"], "images": _get_images(request.text)}
+
+
+def _get_images(HTML: str) -> list[str, dict[str, str]]:
+    soup = BeautifulSoup(HTML, "html.parser")
+
+    images = []
+    image_cards = soup.find_all(attrs={"data-test-id": "pin-visual-wrapper"})
+    for image_card in image_cards:
+        image = image_card.select_one("div > div img")
+        link = image["src"]
+        images.append({"link": link})
+
+    return images
