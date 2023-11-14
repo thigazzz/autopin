@@ -1,1 +1,1 @@
-from .images import Images, Scrapper
+from .images import Images
