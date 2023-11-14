@@ -4,7 +4,8 @@ from itertools import count
 from unittest.mock import patch, Mock
 import requests
 from bs4 import BeautifulSoup
-from .fakes.html import html_w_1_e, html_w_3_e
+from .fakes.html import html_w_1_e, html_w_3_e, html_w_m11_e
+from pytest import mark
 
 
 @dataclass
@@ -31,13 +32,14 @@ class Images:
     def __init__(self, scrapper: Scrapper) -> None:
         self.scrapper = scrapper
 
-    def get_images_from_topic(self, topic: str) -> List[Image]:
+    def get_images_from_topic(self, topic: str, ammount=5) -> List[Image]:
         """
         Raspa dados de imagens de um respectivo tópico e estrutura em
         uma lista de Imagens (Images)
 
         Param:
             Topic: Um tópico
+            Ammount: Quantidade de imagens a serem pegas
 
         Result:
             Conjunto de Imagens
@@ -49,8 +51,12 @@ class Images:
 
         images = []
         image_cards = soup.find_all(attrs={"data-test-id": "pin-visual-wrapper"})
-        for image_card in image_cards:
-            image = image_card.select_one("div > div img")
+
+        for index in range(0, ammount):
+            try:
+                image = image_cards[index].select_one("div > div img")
+            except IndexError:
+                break
             name = image["alt"]
             link = image["src"]
             images.append(
@@ -61,10 +67,33 @@ class Images:
 
 
 @patch("requests.get")
-def test_get_and_stucture_an_image(mock_request):
-    mock_request.return_value = Mock(text=html_w_1_e, status_code=200)
+@mark.parametrize(
+    "html,expected",
+    [
+        (html_w_1_e, [Image(id=1, topic="any", src="any", name="any")]),
+        (
+            html_w_3_e,
+            [
+                Image(id=1, topic="any", src="any", name="any"),
+                Image(id=2, topic="any", src="any", name="any"),
+                Image(id=3, topic="any", src="any", name="any"),
+            ],
+        ),
+        (
+            html_w_m11_e,
+            [
+                Image(id=1, topic="any", src="any", name="any"),
+                Image(id=2, topic="any", src="any", name="any"),
+                Image(id=3, topic="any", src="any", name="any"),
+                Image(id=4, topic="any", src="any", name="any"),
+                Image(id=5, topic="any", src="any", name="any"),
+            ],
+        ),
+    ],
+)
+def test_get_and_stucture_an_image(mock_request, html, expected):
+    mock_request.return_value = Mock(text=html, status_code=200)
     scrapper = Scrapper()
-    expected = [Image(id=1, topic="any", src="any", name="any")]
     topic = Topic(name="any", url="any")
     sut = Images(scrapper)
 
@@ -74,18 +103,13 @@ def test_get_and_stucture_an_image(mock_request):
 
 
 @patch("requests.get")
-def test_get_and_stucture_an_ammount_of_images(mock_request):
-    mock_request.return_value = Mock(text=html_w_3_e, status_code=200)
+def test_get_images_according_to__last_number(mock_request):
+    mock_request.return_value = Mock(text=html_w_m11_e, status_code=200)
     scrapper = Scrapper()
-    expected = [
-        Image(id=1, topic="any", src="any", name="any"),
-        Image(id=2, topic="any", src="any", name="any"),
-        Image(id=3, topic="any", src="any", name="any"),
-    ]
+    expected_10_images = 10
     topic = Topic(name="any", url="any")
     sut = Images(scrapper)
 
-    result = sut.get_images_from_topic(topic)
-    print(result)
+    result = sut.get_images_from_topic(topic, ammount=10)
 
-    assert result == expected
+    assert len(result) == expected_10_images
