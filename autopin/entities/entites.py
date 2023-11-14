@@ -13,4 +13,4 @@ class Image:
 class Topic:
     name: str
     description: str
-    url: str = field(init=False)
+    url: str

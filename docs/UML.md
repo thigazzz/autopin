@@ -37,7 +37,7 @@ Estrutura de dados de Topico:
     images: list(Image)
 }
 métodos:
-show_recommended_topics() -> list(str)
+show_recommended_topics() -> list(Topic)
 """
 Mostra uma lista de tópicos que foram recomendados no site do Pinterest
 """

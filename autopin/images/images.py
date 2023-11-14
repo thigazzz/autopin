@@ -1,12 +1,7 @@
 from typing import List
 from itertools import count
-import requests
-from bs4 import BeautifulSoup
 from autopin.entities import Image, Topic
-
-
-class Scrapper:
-    ...
+from autopin.scrapper import Scrapper
 
 
 class Images:
@@ -28,20 +23,21 @@ class Images:
             Conjunto de Imagens
         """
         self.counter = count(1)
-        html = requests.get(topic.url).text
 
-        soup = BeautifulSoup(html, "html.parser")
+        soup = self.scrapper.request_page(topic.url)
 
         images = []
-        image_cards = soup.find_all(attrs={"data-test-id": "pin-visual-wrapper"})
+        image_cards = self.scrapper.find_all_by_attributes(
+            soup, {"data-test-id": "pin-visual-wrapper"}
+        )
 
         for index in range(0, ammount):
             try:
-                image = image_cards[index].select_one("div > div img")
+                image = self.scrapper.find_one(image_cards[index], "div > div img")
             except IndexError:
                 break
-            name = image["alt"]
-            link = image["src"]
+            name = self.scrapper.get_from_attribute(image, "alt")
+            link = self.scrapper.get_from_attribute(image, "src")
             images.append(
                 Image(id=next(self.counter), topic=topic.name, src=link, name=name)
             )
