@@ -1,10 +1,12 @@
-classes: Imagens, Tópicos
+classes: Image, Imagens, Tópicos, Topic
 
-Imagens precisa de um Scrapper
+Imagem precisa de Imagens
+Imagem precisa de um Scrapper
 Topicos precisa de um Scrapper
-Tópicos precisa de um Images
+Tópicos precisa de um Imagem
 
-Estrutura de dados de Imagens:
+## Images
+Estrutura de dados de Imagem:
 
 {   
     id: int
@@ -13,20 +15,27 @@ Estrutura de dados de Imagens:
     name: str
 }
 
+### Image:
 métodos:
-get_images_from_topic(topic, ammount_of_images = 10) -> list(Images)
+get_images_from_topic(topic: Topic, ammount_of_images = 10) -> list(Imagens)
 """
 Extrai dados de imagens de um tópico e retorna uma lista de imagens
 """
 
-
-Estrutura de dados de Topicos:
+### Topic
+Estrutura de dados de Topico:
 {   
     name: str
     description: str
-    images: list(Image)
 }
 
+### Topics
+Estrutura de dados de Topico:
+{   
+    name: Topic.name
+    description: Topic.description
+    images: list(Image)
+}
 métodos:
 show_recommended_topics() -> list(str)
 """
