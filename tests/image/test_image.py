@@ -1,9 +1,8 @@
 from unittest.mock import patch, Mock
 from .fakes.html import html_w_1_e, html_w_3_e, html_w_m11_e
 from pytest import mark
-from autopin.images import Images
+from autopin.images import Images, Scrapper
 from autopin.entities import Image, Topic
-from autopin.scrapper import Scrapper
 
 
 @patch("requests.get")

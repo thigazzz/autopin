@@ -1,7 +1,12 @@
-from typing import List, Any
+from typing import List
 from itertools import count
+import requests
+from bs4 import BeautifulSoup
 from autopin.entities import Image, Topic
-from autopin.scrapper import Scrapper
+
+
+class Scrapper:
+    ...
 
 
 class Images:
@@ -23,48 +28,22 @@ class Images:
             Conjunto de Imagens
         """
         self.counter = count(1)
+        html = requests.get(topic.url).text
 
-        soup = self.scrapper.request_page(topic.url)
+        soup = BeautifulSoup(html, "html.parser")
 
         images = []
-        image_cards = self.scrapper.find_all_by_attribute(
-            soup, {"data-test-id": "pin-visual-wrapper"}
-        )
+        image_cards = soup.find_all(attrs={"data-test-id": "pin-visual-wrapper"})
 
         for index in range(0, ammount):
             try:
-                images.append(self.__get_image(image_cards[index], topic))
+                image = image_cards[index].select_one("div > div img")
             except IndexError:
                 break
+            name = image["alt"]
+            link = image["src"]
+            images.append(
+                Image(id=next(self.counter), topic=topic.name, src=link, name=name)
+            )
 
         return images
-
-    def __get_image(self, image_element, topic):
-        """
-        Extrai informações de uma imagem
-
-        Param:
-            image_element: Elemento de imagem
-            Topic: Topic da Imagem (vai mudar)
-
-        Returns:
-            Uma instancia de Imagem
-        """
-        image = self.scrapper.find_element(image_element, "div > div img")
-        name, link = self.__get_informations_from_image(image)
-        return Image(id=next(self.counter), topic=topic.name, src=link, name=name)
-
-    def __get_informations_from_image(self, image_element: Any) -> List[str]:
-        """
-        Extrai os atributos 'alt' e 'src' de uma elemento de imagem
-
-        Param:
-            image_element: Elemento de imagem
-
-        Returns:
-            Os valore de 'alt' e 'src' em lista
-
-        """
-        name = self.scrapper.get_attribute(image_element, "alt")
-        link = self.scrapper.get_attribute(image_element, "src")
-        return name, link
