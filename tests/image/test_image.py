@@ -34,7 +34,8 @@ from autopin.scrapper import Scrapper
 def test_get_and_stucture_an_image(mock_request, html, expected):
     mock_request.return_value = Mock(text=html, status_code=200)
     scrapper = Scrapper()
-    topic = Topic(name="any", url="any")
+    topic = Topic(name="any", description="any")
+    topic.url = "any"
     sut = Images(scrapper)
 
     result = sut.get_images_from_topic(topic)
@@ -47,7 +48,8 @@ def test_get_images_according_to__last_number(mock_request):
     mock_request.return_value = Mock(text=html_w_m11_e, status_code=200)
     scrapper = Scrapper()
     expected_10_images = 10
-    topic = Topic(name="any", url="any")
+    topic = Topic(name="any", description="any")
+    topic.url = "any"
     sut = Images(scrapper)
 
     result = sut.get_images_from_topic(topic, ammount=10)

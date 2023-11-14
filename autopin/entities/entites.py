@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -12,4 +12,5 @@ class Image:
 @dataclass
 class Topic:
     name: str
-    url: str
+    description: str
+    url: str = field(init=False)
