@@ -1,7 +1,7 @@
 from typing import List
 from itertools import count
-from autopin.entities import Image, Topic
-from autopin.scrapper import Scrapper
+from .entites import Image, Topic
+from .scrapper import Scrapper
 
 
 class Images:

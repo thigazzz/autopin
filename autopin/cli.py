@@ -1,8 +1,8 @@
 import sys
 from typing import List
-from topics import Topics
-from entities import Topic
-from scrapper import Scrapper
+from .entites import Topic
+from .topics import Topics
+from .scrapper import Scrapper
 
 
 def show_topics(topics: List[Topic]):

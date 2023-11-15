@@ -1,6 +1,6 @@
 from typing import List
-from autopin.entities import Topic
-from autopin.scrapper import Scrapper
+from .entites import Topic
+from .scrapper import Scrapper
 
 
 class Topics:

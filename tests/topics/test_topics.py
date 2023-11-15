@@ -1,6 +1,6 @@
 from pytest import mark
 from unittest.mock import patch, Mock
-from autopin.entities import Topic
+from autopin.entites import Topic
 from autopin.scrapper import Scrapper
 from autopin.topics import Topics
 from .fake.html import html_w_1_e, html_w_2_e
