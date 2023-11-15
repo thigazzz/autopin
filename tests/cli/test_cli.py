@@ -15,7 +15,7 @@ def test_show_all_today_topics(mocked_get, monkeypatch, capsys):
     - Etc
     """
     mocked_get.return_value = Mock(text=html_w_1_e, status_code=200)
-    monkeypatch.setattr("sys.argv", ["dir", "today", "topics"])
+    monkeypatch.setattr("sys.argv", ["dir", "topics"])
     sut.run()
 
     out, _ = capsys.readouterr()

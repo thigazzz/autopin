@@ -22,7 +22,7 @@ def run():
     """
     command = sys.argv
 
-    if command[1] == "today" and command[2] == "topics":
+    if command[1] == "topics":
         topics = Topics(Scrapper())
         today_topics = topics.get_today_topics()
         print("\n Esses são os tópicos de hoje: \n\n" + show_topics(today_topics))
