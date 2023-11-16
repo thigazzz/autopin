@@ -42,7 +42,7 @@ def run():
         _images_obj = Images(_s)
 
         for today_topic in today_topics:
-            if today_topic.name == command[2].replace("\n", ""):
+            if today_topic.name in command[2].replace("-", " ").strip():
                 _topic = today_topic
                 images = _images_obj.get_images_from_topic(_topic)
                 print(
@@ -50,3 +50,7 @@ def run():
                         command[2], show_images(images)
                     )
                 )
+
+
+if __name__ == "__main__":
+    run()

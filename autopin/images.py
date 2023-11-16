@@ -23,8 +23,7 @@ class Images:
             Conjunto de Imagens
         """
         self.counter = count(1)
-
-        soup = self.scrapper.request_page(topic.url)
+        soup = self.scrapper.request_page("https://br.pinterest.com" + topic.url)
 
         images = []
         image_cards = self.scrapper.find_all_by_attributes(

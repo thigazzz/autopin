@@ -1,8 +1,7 @@
-import sys
 from unittest.mock import patch, Mock
 from autopin import cli as sut
 from autopin.entites import Image, Topic
-from .fake.html import html_w_1_e, images_html_w_3_e
+from .fake.html import html_w_1_e
 
 
 @patch("requests.get")
