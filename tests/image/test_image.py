@@ -45,6 +45,21 @@ def test_get_and_stucture_an_image(mock_request, html, expected):
 
 @patch("requests.get")
 def test_get_images_according_to__last_number(mock_request):
+    """
+    Test the feature of get a defined number of images
+        
+    Input:
+    >>> get_images_from_topic(any_topic, 5)
+
+    Expect:
+       result (list(Topic)[5]: A list of five images
+
+    Input:
+    >>> get_images_from_topic(any_topic, 20)
+
+    Expect:
+       result (list(Topic)[20]: A list of twenty images
+    """
     mock_request.return_value = Mock(text=html_w_m11_e, status_code=200)
     scrapper = Scrapper()
     expected_10_images = 10
