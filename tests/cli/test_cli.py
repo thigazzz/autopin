@@ -7,12 +7,11 @@ from .fake.html import html_w_1_e
 @patch("requests.get")
 def test_show_all_today_topics(mocked_get, monkeypatch, capsys):
     """
-    command: autopin today topics
+    >> autopin topics
 
-    result:
-    - Natureza: Respectiva Descrição
-    - Carros
-    - Etc
+    >>> - Topic1: Description1
+    >>> - Topic2: Description2
+    >>> - Topic3: Description3
     """
     mocked_get.return_value = Mock(text=html_w_1_e, status_code=200)
     monkeypatch.setattr("sys.argv", ["dir", "topics"])
@@ -27,12 +26,11 @@ def test_show_all_today_topics(mocked_get, monkeypatch, capsys):
 @patch("autopin.topics.Topics.get_today_topics")
 def test_show_images_from_topic(Topics_mocked, Images_mocked, monkeypatch, capsys):
     """
-    command: autopin today topics
+    >> autopin images [topic] 
 
-    result:
-    - Natureza: Respectiva Descrição
-    - Carros
-    - Etc
+    >>> - Image1: Description1
+    >>> - Image2: Description2
+    >>> - Image3: Description3
     """
     Topics_mocked.return_value = [
         Topic(name="any", description="any", url="any"),

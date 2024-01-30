@@ -21,6 +21,14 @@ from .fake.html import html_w_1_e, html_w_2_e
     ],
 )
 def test_get_today_recommended_topics(mock_requests, fake_html, expected):
+    """
+    Expected:
+        result (list(Topic)]: List of topics
+
+    Mock:
+        requests.get: Mock request
+        fake_html: HTML with the scruture of topic in Pinterest site
+    """
     mock_requests.return_value = Mock(text=fake_html, status_code=200)
     scrapper = Scrapper()
     sut = Topics(scrapper)
