@@ -1,3 +1,6 @@
+"""
+Module to get images from a topic
+"""
 from typing import List
 from itertools import count
 from .entites import Image, Topic
@@ -12,15 +15,14 @@ class Images:
 
     def get_images_from_topic(self, topic: Topic, ammount=5) -> List[Image]:
         """
-        Raspa dados de imagens de um respectivo tópico e estrutura em
-        uma lista de Imagens (Images)
+        Get main informations of a image from a topic
 
         Param:
-            Topic: Um objeto de tópico
-            Ammount: Quantidade de imagens a serem pegas
+            Topic: An instance of Topic
+            Ammount: Amount of images to get, default 5
 
         Result:
-            Conjunto de Imagens
+            A list of images
         """
         self.counter = count(1)
         soup = self.scrapper.request_page("https://br.pinterest.com" + topic.url)
