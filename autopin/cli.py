@@ -1,3 +1,7 @@
+"""
+Module defining and organizing the CLI functionality.
+"""
+
 import sys
 from typing import List
 from .entites import Topic, Image
@@ -24,14 +28,35 @@ def show_images(images: List[Image]) -> str:
 
 def run():
     """
+    Main function to run the CLI. Get the commands and direct to the right place.
 
-    command: autopin today topics
+    Structure of command:
+        python3 [section] [args]
 
-    result: Mostrar os tópicos de hoje em uma lista
+        - section: can be 'topics' or 'images'
+
+    Section 'Topics':
+        
+        Return all topics from Pinterest Explorer in a list.
+
+        >>> python3 topics
+        >>> - topic1: description1
+        >>> - topic2: description2
+        >>> - topic3: description3
+    
+    Section 'Images':
+        
+        Return all images from a topic.
+
+        >>> python3 images [topic] 
+        >>> - image1: src1 
+        >>> - image2: src2 
+        >>> - image3: src3 
     """
     command = sys.argv
 
     if command[1] == "topics":
+        print("aaa")
         topics = Topics(Scrapper())
         today_topics = topics.get_today_topics()
         print("\n Esses são os tópicos de hoje: \n\n" + show_topics(today_topics))

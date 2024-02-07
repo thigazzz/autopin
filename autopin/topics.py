@@ -1,3 +1,6 @@
+"""
+Module to get topics from the Explore page of Pinterest
+"""
 from typing import List
 from .entites import Topic
 from .scrapper import Scrapper
@@ -9,7 +12,13 @@ class Topics:
 
     def get_today_topics(self) -> List[Topic]:
         """
-        Extraí quais são os tópicos recomendados hoje
+        Get topics from the Explore page of Pinterest
+
+        Params:
+            scrapper: instance of a Scrapper
+        
+        Results:
+            A list of all topics
         """
         soup = self.scrapper.request_page("https://br.pinterest.com/today/")
 
