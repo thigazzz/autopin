@@ -49,6 +49,8 @@ def run():
         Return all images from a topic.
 
         >>> python3 images [topic] 
+        tip: the topic must be separate by '-' not spaces.
+        Example: is 'any-topic-1', not 'any topic 1'
         >>> - image1: src1 
         >>> - image2: src2 
         >>> - image3: src3 
@@ -56,7 +58,6 @@ def run():
     command = sys.argv
 
     if command[1] == "topics":
-        print("aaa")
         topics = Topics(Scrapper())
         today_topics = topics.get_today_topics()
         print("\n Esses são os tópicos de hoje: \n\n" + show_topics(today_topics))
