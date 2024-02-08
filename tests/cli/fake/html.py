@@ -24,7 +24,7 @@ exemplo de HTML
                                         <div class="X6t zI7 iyn Hsu">
                                             <div class="tBJ dyH iFc sAJ NAw tg7 IZT swG">any topic</div>
                                         </div>
-                                        <h1 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any description</h1>
+                                        <h2 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any description</h1>
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@ exemplo de HTML
                                         <div class="X6t zI7 iyn Hsu">
                                             <div class="tBJ dyH iFc sAJ NAw tg7 IZT swG">any</div>
                                         </div>
-                                        <h1 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any</h1>
+                                        <h2 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any</h1>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@ exemplo de HTML
                                         <div class="X6t zI7 iyn Hsu">
                                             <div class="tBJ dyH iFc sAJ NAw tg7 IZT swG">any2</div>
                                         </div>
-                                        <h1 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any2</h1>
+                                        <h2 class="lH1 dyH iFc H2s GTB NAw tg7 IZT">any2</h1>
                                     </div>
                                 </div>
                             </div>

@@ -32,8 +32,8 @@ class Topics:
                 topic_card, "a > div > div > div > div > div > div > div > div > div"
             ).text
             topic_description = self.scrapper.find_one(
-                topic_card, "a > div > div > div > div > div > div > div h1"
-            ).text
+                topic_card, "a > div > div > div > div > div > div > div h2"
+            ).text.strip()
             topic_link = topic_card.find("a")["href"]
             topics.append(
                 Topic(name=topic_title, description=topic_description, url=topic_link)
