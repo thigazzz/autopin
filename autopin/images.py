@@ -5,6 +5,7 @@ from typing import List
 from itertools import count
 from .entites import Image, Topic
 from .scrapper import Scrapper
+from .selectors import CSS
 
 
 class Images:
@@ -34,13 +35,17 @@ class Images:
 
         for index in range(0, ammount):
             try:
-                image = self.scrapper.find_one(image_cards[index], "div > div img")
+                image, name, link = self._get_image_element(image_cards[index])
+                images.append(
+                    Image(id=next(self.counter), topic=topic.name, src=link, name=name)
+                )
             except IndexError:
                 break
-            name = self.scrapper.get_from_attribute(image, "alt")
-            link = self.scrapper.get_from_attribute(image, "src")
-            images.append(
-                Image(id=next(self.counter), topic=topic.name, src=link, name=name)
-            )
 
         return images
+
+    def _get_image_element(self, parent_element):
+            image = self.scrapper.find_one(parent_element, CSS["image"])
+            name = self.scrapper.get_from_attribute(image, "alt")
+            link = self.scrapper.get_from_attribute(image, "src")
+            return  [image, name, link]
