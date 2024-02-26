@@ -27,6 +27,22 @@ def show_images(images: List[Image]) -> str:
 
     return text
 
+def get_topics_command() -> None:
+    today_topics = topics_obj.get_today_topics()
+    print("\n Esses são os tópicos de hoje: \n\n" + show_topics(today_topics))
+
+def get_images_command(topic_from_gui: str) -> None:
+    today_topics = topics_obj.get_today_topics()
+    for today_topic in today_topics:
+        if today_topic.name in topic_from_gui.replace("-", " ").strip():
+            _topic = today_topic
+            images = images_obj.get_images_from_topic(_topic)
+            print(
+                "\n Esses são as imagens e seus links do tópico {}: \n\n {}".format(
+                    topic_from_gui, show_images(images)
+                )
+            )
+
 
 scrapper_obj = Scrapper()
 topics_obj = Topics(scrapper_obj)
@@ -65,21 +81,10 @@ def run():
     command = sys.argv
 
     if command[1] == "topics":
-        today_topics = topics_obj.get_today_topics()
-        print("\n Esses são os tópicos de hoje: \n\n" + show_topics(today_topics))
+        get_topics_command()
 
     if command[1] == "images":
-        today_topics = topics_obj.get_today_topics()
-
-        for today_topic in today_topics:
-            if today_topic.name in command[2].replace("-", " ").strip():
-                _topic = today_topic
-                images = images_obj.get_images_from_topic(_topic)
-                print(
-                    "\n Esses são as imagens e seus links do tópico {}: \n\n {}".format(
-                        command[2], show_images(images)
-                    )
-                )
+        get_images_command(command[2])
 
 
 if __name__ == "__main__":
