@@ -38,12 +38,12 @@ class Topics:
         return topics
 
     def _get_topic_card_element(self, parent_element):
-        topic_title = self.scrapper.find_one(
+        topic_title = self.scrapper.find_children(
             parent_element, CSS["topic_title"]
         ).text
-        topic_description = self.scrapper.find_one(
+        topic_description = self.scrapper.find_children(
             parent_element, CSS["topic_description"]
         ).text.strip()
-        topic_link = self.scrapper.find_one(parent_element, CSS["anchor"])
-        topic_link = self.scrapper.get_from_attribute(topic_link, "href")
+        topic_link = self.scrapper.find_children(parent_element, CSS["anchor"])
+        topic_link = self.scrapper.get_attribute(topic_link, "href")
         return [topic_title, topic_description, topic_link]

@@ -28,11 +28,11 @@ class Images:
         self.counter = count(1)
         soup = self.scrapper.request_page("https://br.pinterest.com" + topic.url)
 
-        images = []
         image_cards = self.scrapper.find_all_by_attributes(
             soup, {"data-test-id": "pin-visual-wrapper"}
         )
 
+        images = []
         for index in range(0, ammount):
             try:
                 image, name, link = self._get_image_element(image_cards[index])
@@ -45,7 +45,7 @@ class Images:
         return images
 
     def _get_image_element(self, parent_element):
-            image = self.scrapper.find_one(parent_element, CSS["image"])
-            name = self.scrapper.get_from_attribute(image, "alt")
-            link = self.scrapper.get_from_attribute(image, "src")
+            image = self.scrapper.find_children(parent_element, CSS["image"])
+            name = self.scrapper.get_attribute(image, "alt")
+            link = self.scrapper.get_attribute(image, "src")
             return  [image, name, link]

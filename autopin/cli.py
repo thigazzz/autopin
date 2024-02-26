@@ -42,6 +42,7 @@ def get_images_command(topic_from_gui: str) -> None:
                     topic_from_gui, show_images(images)
                 )
             )
+            return
 
 
 scrapper_obj = Scrapper()
