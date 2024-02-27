@@ -1,19 +1,19 @@
 from unittest.mock import patch, Mock
-from .fakes.html import html_w_1_e, html_w_3_e, html_w_m11_e
 from pytest import mark
 from autopin.images import Images
 from autopin.entites import Image
 from autopin.scrapper import Scrapper
 from autopin.topics import Topic
+from .factory.make_fake_html import make_fake_html
 
 
 @patch("requests.get")
 @mark.parametrize(
     "html,expected",
     [
-        (html_w_1_e, [Image(id=1, topic="any", src="any", name="any")]),
+        (make_fake_html('image', 1), [Image(id=1, topic="any", src="any", name="any")]),
         (
-            html_w_3_e,
+            make_fake_html('image', 3),
             [
                 Image(id=1, topic="any", src="any", name="any"),
                 Image(id=2, topic="any", src="any", name="any"),
@@ -21,7 +21,7 @@ from autopin.topics import Topic
             ],
         ),
         (
-            html_w_m11_e,
+            make_fake_html('image', 11),
             [
                 Image(id=1, topic="any", src="any", name="any"),
                 Image(id=2, topic="any", src="any", name="any"),
@@ -60,7 +60,7 @@ def test_get_images_according_to__last_number(mock_request):
     Expect:
        result (list(Topic)[20]: A list of twenty images
     """
-    mock_request.return_value = Mock(text=html_w_m11_e, status_code=200)
+    mock_request.return_value = Mock(text=make_fake_html('image', 11), status_code=200)
     scrapper = Scrapper()
     expected_10_images = 10
     topic = Topic(name="any", description="any", url="any")

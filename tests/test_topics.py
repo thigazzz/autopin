@@ -3,18 +3,18 @@ from unittest.mock import patch, Mock
 from autopin.entites import Topic
 from autopin.scrapper import Scrapper
 from autopin.topics import Topics
-from .fake.html import html_w_1_e, html_w_2_e
+from .factory.make_fake_html import make_fake_html
 
 
 @patch("requests.get")
 @mark.parametrize(
     "fake_html,expected",
     [
-        (html_w_1_e, [Topic(name="any", description="any", url="any")]),
+        (make_fake_html("topic", 1), [Topic(name="any1", description="any1", url="any1")]),
         (
-            html_w_2_e,
+            make_fake_html("topic", 2),
             [
-                Topic(name="any", description="any", url="any"),
+                Topic(name="any1", description="any1", url="any1"),
                 Topic(name="any2", description="any2", url="any2"),
             ],
         ),
