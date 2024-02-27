@@ -1,8 +1,7 @@
 from unittest.mock import patch, Mock
 from autopin import cli as sut
 from autopin.entites import Image, Topic
-from .fake.html import html_w_1_e
-
+from .factory.make_fake_html import make_fake_html
 
 @patch("requests.get")
 def test_show_all_today_topics(mocked_get, monkeypatch, capsys):
@@ -13,13 +12,13 @@ def test_show_all_today_topics(mocked_get, monkeypatch, capsys):
     >>> - Topic2: Description2
     >>> - Topic3: Description3
     """
-    mocked_get.return_value = Mock(text=html_w_1_e, status_code=200)
+    mocked_get.return_value = Mock(text=make_fake_html('topic', 1), status_code=200)
     monkeypatch.setattr("sys.argv", ["dir", "topics"])
     sut.run()
 
     out, _ = capsys.readouterr()
 
-    assert "any topic: any description" in out
+    assert "any1: any1" in out
 
 
 @patch("autopin.images.Images.get_images_from_topic")

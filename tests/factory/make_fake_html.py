@@ -67,15 +67,12 @@ def make_fake_html(type_of_html: str, number_of_elements: int) -> str:
     """
     if type_of_html == "topic":
         html = add_topic_element_to_html(html, number_of_elements)
-        html += """
-        \n
-        </html>
-        """
         return html
     else:
         html = add_image_element_to_html(html, number_of_elements)
-        html += """
-        \n
-        </html>
-        """
-        return html
+
+    html += """
+    \n
+    </html>
+    """
+    return html
